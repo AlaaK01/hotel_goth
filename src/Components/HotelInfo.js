@@ -1,9 +1,31 @@
-import React from 'react'
-import services from './Data/services.json'
-import accessibilities from './Data/accessibilities.json'
+import React, {useState, useEffect} from 'react'
+//import services from './Data/services.json'
+//import accessibilities from './Data/accessibilities.json'
 
 
 const HotelInfo = () => {
+  const [services, setServices] = useState([]);
+  const [accessibilities, setAccessibilities] = useState([]);
+
+  const LoadAccessibilitiesData = async() => {
+    const respAccessibilities = await fetch('https://4s6hrdsjlc.execute-api.eu-north-1.amazonaws.com/production/accessibilities');
+    const jsonDataAccessibilities = await respAccessibilities.json();
+    setAccessibilities(jsonDataAccessibilities);
+  }
+
+  const LoadServicesData = async() => {
+    const respServices = await fetch('https://4s6hrdsjlc.execute-api.eu-north-1.amazonaws.com/production/services');
+    const jsonDataServices = await respServices.json();
+    setServices(jsonDataServices);
+  }
+
+  useEffect(() => {
+    LoadAccessibilitiesData();
+  }, [])
+
+  useEffect(() => {
+    LoadServicesData();
+  }, [])
     return(
         <div className="scene" id="hotelinfo">
             <article className="heading">
@@ -45,8 +67,8 @@ const HotelInfo = () => {
               </section>
             </article>
             <article id="greenprogram">
-              <h2>Landon Green Program</h2>
-              <p><strong>The Landon Hotel - London</strong> was recently renovated, and we considered the impact on the earth the entire way. From green building materials, to solar power, to energy-friendly lighting and appliances throughout the hotel - we’re saving energy in every socket, outlet, and switch. We’ve also initiated a recycling and composting program that reduces the load to local landfills, while providing valuable raw material for use in new products, or in the case of compost, for use in local gardens and landscapes.</p>
+              <h2>Gothenburg Green Program</h2>
+              <p><strong>The Gothenburg Hotel - Gothenburg</strong> was recently renovated, and we considered the impact on the earth the entire way. From green building materials, to solar power, to energy-friendly lighting and appliances throughout the hotel - we’re saving energy in every socket, outlet, and switch. We’ve also initiated a recycling and composting program that reduces the load to local landfills, while providing valuable raw material for use in new products, or in the case of compost, for use in local gardens and landscapes.</p>
             </article>
           </div>
     
